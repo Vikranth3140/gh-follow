@@ -22,8 +22,20 @@ headers = {
 response = requests.get(followers_api_url, headers=headers)
 followers = response.json()
 
-# Follow each follower with rate limit handling
+# Get the list of users already followed
+response = requests.get(follow_api_url, headers=headers)
+if response.status_code == 200:
+    already_following = [follower['login'] for follower in response.json()]
+else:
+    print('Failed to get list of users already followed.')
+    already_following = []
+
+# Follow each follower with rate limit handling and duplicate check
 for follower in followers:
+    if follower["login"] in already_following:
+        print(f'Already following: {follower["login"]}')
+        continue
+
     follow_url = f'{follow_api_url}{follower["login"]}'
     response = requests.put(follow_url, headers=headers)
 
