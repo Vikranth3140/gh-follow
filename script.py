@@ -38,6 +38,7 @@ def follow_followers():
                 print(f'Followed: {follower["login"]}')
             else:
                 print(f'Failed to follow: {follower["login"]}')
+                time.sleep(10)  # Wait for 10 seconds before retrying
 
             # Check rate limit and wait if needed
             remaining_requests = int(response.headers.get('X-RateLimit-Remaining', 0))
@@ -46,8 +47,6 @@ def follow_followers():
                 wait_time = max(reset_time - time.time() + 1, 0)  # Add 1 second buffer
                 print(f'Rate limit exceeded. Waiting for {wait_time} seconds...')
                 time.sleep(wait_time)
-
-
 
         # Wait for 5 seconds before fetching followers again
         time.sleep(5)
