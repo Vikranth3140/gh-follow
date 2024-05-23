@@ -101,6 +101,14 @@ def unfollow_unfollowers(username, token, target_account):
         print('Failed to get list of users followed by you.')
 
 def main():
+    print('\nInstructions:\n'
+          '- For following a specific user, use: python script.py follow_user --username YourUsername --token YourToken --target-user TargetUser\n'
+          '- For unfollowing a specific user, use: python script.py unfollow_user --username YourUsername --token YourToken --target-user TargetUser\n'
+          '- For following all followers of a target account, use: python script.py follow_followers --username YourUsername --token YourToken --target-account TargetAccount\n'
+          '- For unfollowing all followers of a target account, use: python script.py unfollow_followers --username YourUsername --token YourToken --target-account TargetAccount\n'
+          '- For following all users not following you back from a target account, use: python script.py follow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount\n'
+          '- For unfollowing all users not following you back from a target account, use: python script.py unfollow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount\n')
+    
     parser = argparse.ArgumentParser(description='Follow/Unfollow GitHub users.')
     parser.add_argument('action', choices=['follow_user', 'unfollow_user', 'follow_followers', 'unfollow_followers',
                                            'follow_unfollowers', 'unfollow_unfollowers'],
@@ -118,6 +126,8 @@ def main():
         unfollow_user(args.username, args.token, args.target_user)
     elif args.action == 'follow_followers' and args.username and args.token and args.target_account:
         follow_followers(args.username, args.token, args.target_account)
+    elif args.action == 'unfollow_followers' and args.username and args.token and args.target_account:
+        unfollow_followers(args.username, args.token, args.target_account)
     elif args.action == 'follow_unfollowers' and args.username and args.token and args.target_account:
         follow_unfollowers(args.username, args.token, args.target_account)
     elif args.action == 'unfollow_unfollowers' and args.username and args.token and args.target_account:
