@@ -63,6 +63,7 @@ This Python script allows you to manage your GitHub followers and following list
 
 ## Note
 
+- Get your GitHub Access Token [here](https://github.com/settings/tokens).
 - Replace `YourUsername`, `YourToken`, `TargetUser`, and `TargetAccount` with your actual GitHub username, personal access token, target user's username, and target account's username, respectively.
 - Ensure you have the necessary permissions and abide by GitHub's terms of service while using this script.
 - Do checkout [Follow-for-follow-back](https://github.com/AlgoArchives/Follow-for-follow-back.git) and run the script on those accounts inorder to gain traction :)
