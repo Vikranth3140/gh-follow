@@ -18,36 +18,39 @@ headers = {
     'Accept': 'application/vnd.github.v3+json'
 }
 
-# Get the list of followers
-response = requests.get(followers_api_url, headers=headers)
-followers = response.json()
+def follow_followers():
+    while True:
+        # Get the list of followers
+        response = requests.get(followers_api_url, headers=headers)
+        if response.status_code == 200:
+            followers = response.json()
+        else:
+            print('Failed to get list of followers.')
+            time.sleep(5)  # Wait for 5 seconds before retrying
+            continue
 
-# Get the list of users already followed
-response = requests.get(follow_api_url, headers=headers)
-if response.status_code == 200:
-    already_following = [follower['login'] for follower in response.json()]
-else:
-    print('Failed to get list of users already followed.')
-    already_following = []
+        # Follow each follower with rate limit handling and duplicate check
+        for follower in followers:
+            follow_url = f'{follow_api_url}{follower["login"]}'
+            response = requests.put(follow_url, headers=headers)
 
-# Follow each follower with rate limit handling and duplicate check
-for follower in followers:
-    if follower["login"] in already_following:
-        print(f'Already following: {follower["login"]}')
-        continue
+            if response.status_code == 204:  # Successful follow
+                print(f'Followed: {follower["login"]}')
+            else:
+                print(f'Failed to follow: {follower["login"]}')
 
-    follow_url = f'{follow_api_url}{follower["login"]}'
-    response = requests.put(follow_url, headers=headers)
+            # Check rate limit and wait if needed
+            remaining_requests = int(response.headers.get('X-RateLimit-Remaining', 0))
+            if remaining_requests == 0:
+                reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
+                wait_time = max(reset_time - time.time() + 1, 0)  # Add 1 second buffer
+                print(f'Rate limit exceeded. Waiting for {wait_time} seconds...')
+                time.sleep(wait_time)
 
-    if response.status_code == 204:  # Successful follow
-        print(f'Followed: {follower["login"]}')
-    else:
-        print(f'Failed to follow: {follower["login"]}')
 
-    # Check rate limit and wait if needed
-    remaining_requests = int(response.headers['X-RateLimit-Remaining'])
-    if remaining_requests == 0:
-        reset_time = int(response.headers['X-RateLimit-Reset'])
-        wait_time = reset_time - time.time() + 1  # Add 1 second buffer
-        print(f'Rate limit exceeded. Waiting for {wait_time} seconds...')
-        time.sleep(wait_time)
+
+        # Wait for 5 seconds before fetching followers again
+        time.sleep(5)
+
+if __name__ == "__main__":
+    follow_followers()
