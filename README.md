@@ -38,32 +38,32 @@ This Python script allows you to manage your GitHub followers and following list
 
    - For following a specific user:
      ```bash
-     python script.py follow_user --username YourUsername --token YourToken --target-user TargetUser
+     python main.py follow_user --username YourUsername --token YourToken --target-user TargetUser
      ```
 
    - For unfollowing a specific user:
      ```bash
-     python script.py unfollow_user --username YourUsername --token YourToken --target-user TargetUser
+     python main.py unfollow_user --username YourUsername --token YourToken --target-user TargetUser
      ```
 
    - For following all followers of a target account:
      ```bash
-     python script.py follow_followers --username YourUsername --token YourToken --target-account TargetAccount
+     python main.py follow_followers --username YourUsername --token YourToken --target-account TargetAccount
      ```
 
    - For unfollowing all followers of a target account:
      ```bash
-     python script.py unfollow_followers --username YourUsername --token YourToken --target-account TargetAccount
+     python main.py unfollow_followers --username YourUsername --token YourToken --target-account TargetAccount
      ```
 
    - For following all users not following you back from a target account:
      ```bash
-     python script.py follow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount
+     python main.py follow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount
      ```
 
    - For unfollowing all users not following you back from a target account:
      ```bash
-     python script.py unfollow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount
+     python main.py unfollow_unfollowers --username YourUsername --token YourToken --target-account TargetAccount
      ```
 
 ## Note
