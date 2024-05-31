@@ -67,7 +67,7 @@ def get_non_reciprocal_users(followers, following):
 
     return not_following_back, not_followed_back
 
-def save_users_to_file(not_following_back, not_followed_back, filename='non_reciprocal_users.txt'):
+def save_users_to_file(not_following_back, not_followed_back, filename='text files\non_reciprocal_users.txt'):
     with open(filename, 'w') as file:
         file.write("Users you follow but who don't follow you back:\n")
         for username in not_following_back:
@@ -86,7 +86,7 @@ def main():
     following = get_following(username, token)
     not_following_back, not_followed_back = get_non_reciprocal_users(followers, following)
     save_users_to_file(not_following_back, not_followed_back)
-    print(f'Successfully saved non-reciprocal users to non_reciprocal_users.txt')
+    print(f'Successfully saved non-reciprocal users to text files\non_reciprocal_users.txt')
 
 if __name__ == '__main__':
     main()
