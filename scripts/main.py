@@ -2,7 +2,7 @@ import argparse
 import requests
 import time
 
-def follow_user(username, token, target_user):
+def follow_user(token, target_user):
     headers = {
         'Authorization': f'token {token}',
         'Accept': 'application/vnd.github.v3+json'
@@ -14,7 +14,7 @@ def follow_user(username, token, target_user):
     else:
         print(f'Failed to follow {target_user}')
 
-def unfollow_user(username, token, target_user):
+def unfollow_user(token, target_user):
     headers = {
         'Authorization': f'token {token}',
         'Accept': 'application/vnd.github.v3+json'
@@ -121,9 +121,9 @@ def main():
     args = parser.parse_args()
 
     if args.action == 'follow_user' and args.username and args.token and args.target_user:
-        follow_user(args.username, args.token, args.target_user)
+        follow_user(args.token, args.target_user)
     elif args.action == 'unfollow_user' and args.username and args.token and args.target_user:
-        unfollow_user(args.username, args.token, args.target_user)
+        unfollow_user(args.token, args.target_user)
     elif args.action == 'follow_followers' and args.username and args.token and args.target_account:
         follow_followers(args.username, args.token, args.target_account)
     elif args.action == 'unfollow_followers' and args.username and args.token and args.target_account:
