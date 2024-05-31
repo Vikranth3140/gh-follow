@@ -15,10 +15,11 @@ This Python script allows you to manage your GitHub followers and following list
 
 ## How to Run
 
-1. Clone this repository to your local machine.
+1. Clone this repository to your local machine and navigate to the project directory.
     
     ```bash
     git clone https://github.com/Vikranth3140/Follower-Frenzy.git
+    cd Follower-Frenzy
     ```
     
 3. Install the required packages.
@@ -26,8 +27,12 @@ This Python script allows you to manage your GitHub followers and following list
     ```bash
     pip install -r requirements.txt
     ```
-
-4. Open a terminal or command prompt in the cloned directory.
+    
+4. Open a terminal or command prompt in the cloned directory and navigate to the scripts directory.
+    
+    ```bash
+    cd scripts
+    ```
 
 5. Use the following commands to run the script:
 
