@@ -1,6 +1,6 @@
-# Follower Frenzy
+# gh-follow
 
-Welcome to Follower Frenzy!
+Welcome to gh-follow!
 
 This Python script allows you to manage your GitHub followers and following list efficiently. You can follow/unfollow specific users, follow all followers of a target account, unfollow all followers of a target account, follow all users not following you back from a target account, and unfollow all users not following you back from a target account.
 
