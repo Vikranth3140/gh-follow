@@ -19,11 +19,22 @@ headers = {
 }
 
 def follow_followers():
-    while True:
+    next_page = followers_api_url
+
+    while next_page:
         # Get the list of followers
-        response = requests.get(followers_api_url, headers=headers)
+        response = requests.get(next_page, headers=headers)
         if response.status_code == 200:
             followers = response.json()
+            # Get the next page URL from the 'Link' header if it exists
+            if 'Link' in response.headers:
+                links = response.headers['Link']
+                if 'rel="next"' in links:
+                    next_page = links.split(';')[0].strip('<>')  # Extract URL for the next page
+                else:
+                    next_page = None
+            else:
+                next_page = None
         else:
             print('Failed to get list of followers.')
             time.sleep(5)  # Wait for 5 seconds before retrying
