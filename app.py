@@ -6,6 +6,35 @@ st.set_page_config(page_title="GitHub Follow Checker", layout="centered")
 st.title("gh-follow")
 st.subheader("Who is not following you back on GitHub?")
 
+# Add custom styling
+styl = """
+    <style>
+        .top-right {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .made-by {
+            position: fixed;
+            bottom: 10px;
+            left: 800px;
+            color: white;
+        }
+        .source-code {
+            position: fixed;
+            bottom: 10px;
+            right: 400px;
+            color: white;
+        }
+    </style>
+"""
+
+st.markdown(styl, unsafe_allow_html=True)
+
 # Function to get followers and following lists from GitHub with pagination
 def get_github_data(username, data_type):
     url = f"https://api.github.com/users/{username}/{data_type}"
@@ -28,9 +57,19 @@ def get_github_data(username, data_type):
             break
     return [user['login'] for user in data]
 
+# Display "Support the project" links in the top right corner
+st.markdown("""
+    <div class="top-right">
+        <h3>Support the project</h3>
+        <ul>
+            <li><a href="https://github.com/Vikranth3140/gh-follow" target="_blank">⭐️ Star us on GitHub</a></li>
+        </ul>
+    </div>
+""", unsafe_allow_html=True)
+
 # Form to input GitHub username
 with st.form("username_form"):
-    username = st.text_input("Your GitHub username")
+    username = st.text_input("Your GitHub username", max_chars=39)
     submitted = st.form_submit_button("Submit")
 
 if submitted:
@@ -56,9 +95,7 @@ if submitted:
         st.warning("Please enter a GitHub username.")
 
 # Footer
-st.markdown("---")
-st.markdown("### Support the project")
-st.markdown("[⭐️ Star us on GitHub](https://github.com/Vikranth3140/gh-follow/)")
-st.markdown("---")
-st.markdown("### Developer")
-st.markdown("[Vikranth3140](https://github.com/Vikranth3140) © 2024")
+st.markdown("""
+    <div class="made-by">Made by <a href='https://github.com/Vikranth3140' style='color:white; text-decoration:none;'>Vikranth Udandarao</a></div>
+    <div class="source-code"><a href='https://github.com/Vikranth3140/gh-follow' style='color:white; text-decoration:none;'>Source Code</a></div>
+""", unsafe_allow_html=True)
