@@ -4,6 +4,8 @@ Welcome to gh-follow!
 
 This Python script, combined with a Streamlit web app, allows you to manage your GitHub followers and following list efficiently. You can identify users who are not following you back and interact with your followers and following lists through an intuitive web interface.
 
+Currently deployed at <a href="https://gh-follow.streamlit.app/">gh-follow.streamlit.app<a>.
+
 ## Features
 
 1. Identify users who are not following you back
