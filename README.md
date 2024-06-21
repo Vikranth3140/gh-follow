@@ -2,18 +2,19 @@
 
 Welcome to gh-follow!
 
-This Python script allows you to manage your GitHub followers and following list efficiently. You can follow/unfollow specific users, follow all followers of a target account, unfollow all followers of a target account, follow all users not following you back from a target account, and unfollow all users not following you back from a target account.
+This Python script, combined with a Streamlit web app, allows you to manage your GitHub followers and following list efficiently. You can identify users who are not following you back and interact with your followers and following lists through an intuitive web interface.
 
 ## Features
 
-1. Follow a specific user
-2. Unfollow a specific user
-3. Follow all followers of a target account
-4. Unfollow all followers of a target account
-5. Follow all users not following you back from a target account
-6. Unfollow all users not following you back from a target account
+1. Identify users who are not following you back
+2. Follow a specific user
+3. Unfollow a specific user
+4. Follow all followers of a target account
+5. Unfollow all followers of a target account
+6. Follow all users not following you back from a target account
+7. Unfollow all users not following you back from a target account
 
-## How to Run
+## How to Run the Web App
 
 1. Clone this repository to your local machine and navigate to the project directory.
     
@@ -22,19 +23,42 @@ This Python script allows you to manage your GitHub followers and following list
     cd Follower-Frenzy
     ```
     
-3. Install the required packages.
+2. Install the required packages.
     
     ```bash
     pip install -r requirements.txt
     ```
     
-4. Open a terminal or command prompt in the cloned directory and navigate to the scripts directory.
+3. Run the Streamlit app.
+    
+    ```bash
+    streamlit run app.py
+    ```
+
+4. Open your web browser and navigate to the displayed URL (usually `http://localhost:8501`).
+
+## How to Run the Scripts
+
+1. Clone this repository to your local machine and navigate to the project directory.
+    
+    ```bash
+    git clone https://github.com/Vikranth3140/Follower-Frenzy.git
+    cd Follower-Frenzy
+    ```
+    
+2. Install the required packages.
+    
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+3. Navigate to the scripts directory.
     
     ```bash
     cd scripts
     ```
 
-5. Use the following commands to run the script:
+4. Use the following commands to run the script:
 
    - For following a specific user:
      ```bash
@@ -71,6 +95,10 @@ This Python script allows you to manage your GitHub followers and following list
 - Get your GitHub Access Token [here](https://github.com/settings/tokens).
 - Replace `YourUsername`, `YourToken`, `TargetUser`, and `TargetAccount` with your actual GitHub username, personal access token, target user's username, and target account's username, respectively.
 - Ensure you have the necessary permissions and abide by GitHub's terms of service while using this script.
-- Do checkout [Follow-for-follow-back](https://github.com/AlgoArchives/Follow-for-follow-back.git) and run the script on those accounts inorder to gain traction :)
+- Check out [Follow-for-follow-back](https://github.com/AlgoArchives/Follow-for-follow-back.git) and run the script on those accounts to gain traction :)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 Happy GitHub follower management!
