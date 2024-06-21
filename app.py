@@ -3,16 +3,27 @@ import requests
 
 st.title("Who is not following you back on GitHub?")
 
-# Function to get followers and following lists from GitHub
+# Function to get followers and following lists from GitHub with pagination
 def get_github_data(username, data_type):
     url = f"https://api.github.com/users/{username}/{data_type}"
     headers = {"Accept": "application/vnd.github.v3+json"}
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return [user['login'] for user in response.json()]
-    else:
-        st.error(f"Error fetching {data_type} data for {username}: {response.status_code}")
-        return []
+    params = {'per_page': 100}
+    data = []
+    while True:
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code == 200:
+            page_data = response.json()
+            if not page_data:
+                break
+            data.extend(page_data)
+            if 'next' in response.links:
+                url = response.links['next']['url']
+            else:
+                break
+        else:
+            st.error(f"Error fetching {data_type} data for {username}: {response.status_code}")
+            break
+    return [user['login'] for user in data]
 
 # Form to input GitHub username
 with st.form("username_form"):
