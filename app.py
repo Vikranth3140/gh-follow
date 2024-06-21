@@ -1,7 +1,10 @@
 import streamlit as st
 import requests
 
-st.title("Who is not following you back on GitHub?")
+st.set_page_config(page_title="GitHub Follow Checker", layout="centered")
+
+st.title("gh-follow")
+st.subheader("Who is not following you back on GitHub?")
 
 # Function to get followers and following lists from GitHub with pagination
 def get_github_data(username, data_type):
@@ -46,8 +49,16 @@ if submitted:
             if not_following_back:
                 st.write(f"{len(not_following_back)} users are not following you back:")
                 for user in not_following_back:
-                    st.write(f"- [{user}](https://github.com/{user})")
+                    st.markdown(f"- [{user}](https://github.com/{user})")
             else:
                 st.success(f"Success! Everyone is following {username} back on GitHub.")
     else:
         st.warning("Please enter a GitHub username.")
+
+# Footer
+st.markdown("---")
+st.markdown("### Support the project")
+st.markdown("[⭐️ Star us on GitHub](https://github.com/Vikranth3140/gh-follow/)")
+st.markdown("---")
+st.markdown("### Developer")
+st.markdown("[Vikranth3140](https://github.com/Vikranth3140) © 2024")
