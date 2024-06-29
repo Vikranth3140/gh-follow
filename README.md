@@ -21,8 +21,8 @@ Currently deployed at <a href="https://gh-follow.streamlit.app/">gh-follow.strea
 1. Clone this repository to your local machine and navigate to the project directory.
     
     ```bash
-    git clone https://github.com/Vikranth3140/Follower-Frenzy.git
-    cd Follower-Frenzy
+    git clone https://github.com/Vikranth3140/gh-follow.git
+    cd gh-follow
     ```
     
 2. Install the required packages.
