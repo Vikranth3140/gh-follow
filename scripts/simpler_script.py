@@ -42,13 +42,23 @@ def follow_followers():
 
         # Follow each follower with rate limit handling and duplicate check
         for follower in followers:
-            follow_url = f'{follow_api_url}{follower["login"]}'
-            response = requests.put(follow_url, headers=headers)
+            check_follow_url = f'{follow_api_url}{follower["login"]}'
+            check_response = requests.get(check_follow_url, headers=headers)
 
-            if response.status_code == 204:  # Successful follow
-                print(f'Followed: {follower["login"]}')
+            if check_response.status_code == 204:  # Already following
+                print(f'Already following: {follower["login"]}')
+                continue
+            elif check_response.status_code == 404:  # Not following yet
+                follow_url = f'{follow_api_url}{follower["login"]}'
+                response = requests.put(follow_url, headers=headers)
+
+                if response.status_code == 204:  # Successful follow
+                    print(f'Followed: {follower["login"]}')
+                else:
+                    print(f'Failed to follow: {follower["login"]}')
+                    time.sleep(10)  # Wait for 10 seconds before retrying
             else:
-                print(f'Failed to follow: {follower["login"]}')
+                print(f'Error checking follow status for: {follower["login"]}')
                 time.sleep(10)  # Wait for 10 seconds before retrying
 
             # Check rate limit and wait if needed
