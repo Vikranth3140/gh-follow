@@ -29,10 +29,11 @@ def follow_followers():
             # Get the next page URL from the 'Link' header if it exists
             if 'Link' in response.headers:
                 links = response.headers['Link']
-                if 'rel="next"' in links:
-                    next_page = links.split(';')[0].strip('<>')  # Extract URL for the next page
-                else:
-                    next_page = None
+                next_page = None
+                for link in links.split(','):
+                    if 'rel="next"' in link:
+                        next_page = link.split(';')[0].strip().strip('<>')
+                        break
             else:
                 next_page = None
         else:
@@ -69,7 +70,7 @@ def follow_followers():
                 print(f'Rate limit exceeded. Waiting for {wait_time} seconds...')
                 time.sleep(wait_time)
 
-        # Wait for 5 seconds before fetching followers again
+        # Wait for 5 seconds before fetching the next page of followers
         time.sleep(5)
 
 if __name__ == "__main__":
