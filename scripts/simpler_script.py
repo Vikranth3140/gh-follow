@@ -51,13 +51,22 @@ def follow_followers():
                 continue
             elif check_response.status_code == 404:  # Not following yet
                 follow_url = f'{follow_api_url}{follower["login"]}'
-                response = requests.put(follow_url, headers=headers)
+                success = False
+                retries = 0
 
-                if response.status_code == 204:  # Successful follow
-                    print(f'Followed: {follower["login"]}')
-                else:
-                    print(f'Failed to follow: {follower["login"]}')
-                    time.sleep(10)  # Wait for 10 seconds before retrying
+                while not success and retries < 3:
+                    response = requests.put(follow_url, headers=headers)
+
+                    if response.status_code == 204:  # Successful follow
+                        print(f'Followed: {follower["login"]}')
+                        success = True
+                    else:
+                        retries += 1
+                        print(f'Failed to follow: {follower["login"]}. Retrying ({retries}/3)...')
+                        time.sleep(10)  # Wait for 10 seconds before retrying
+
+                if not success:
+                    print(f'Failed to follow: {follower["login"]} after 3 attempts.')
             else:
                 print(f'Error checking follow status for: {follower["login"]}')
                 time.sleep(10)  # Wait for 10 seconds before retrying
