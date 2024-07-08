@@ -1,8 +1,7 @@
 import requests
 import time
 
-# GitHub username and API token
-username = 'your_username'
+# GitHub API token
 token = 'your_personal_access_token'
 
 # Account whose followers you want to follow
