@@ -17,8 +17,17 @@ headers = {
     'Accept': 'application/vnd.github.v3+json'
 }
 
+def get_authenticated_username():
+    user_response = requests.get('https://api.github.com/user', headers=headers)
+    if user_response.status_code == 200:
+        return user_response.json()['login']
+    else:
+        print('Failed to fetch authenticated user info.')
+        exit(1)
+
 def follow_followers():
     next_page = followers_api_url
+    my_username = get_authenticated_username()  # Get your username
 
     while next_page:
         # Get the list of followers
@@ -42,14 +51,25 @@ def follow_followers():
 
         # Follow each follower with rate limit handling and duplicate check
         for follower in followers:
-            check_follow_url = f'{follow_api_url}{follower["login"]}'
+            follower_login = follower["login"]
+
+            # Check if they already follow you
+            follows_me_url = f'https://api.github.com/users/{follower_login}/following/{my_username}'
+            reverse_follow_check = requests.get(follows_me_url, headers=headers)
+
+            if reverse_follow_check.status_code == 204:  # They already follow you
+                print(f'Skipping {follower_login} (already follows you).')
+                continue
+
+            # Check if you already follow them
+            check_follow_url = f'{follow_api_url}{follower_login}'
             check_response = requests.get(check_follow_url, headers=headers)
 
             if check_response.status_code == 204:  # Already following
-                print(f'Already following: {follower["login"]}')
+                print(f'Already following: {follower_login}')
                 continue
             elif check_response.status_code == 404:  # Not following yet
-                follow_url = f'{follow_api_url}{follower["login"]}'
+                follow_url = f'{follow_api_url}{follower_login}'
                 success = False
                 retries = 0
 
@@ -57,17 +77,17 @@ def follow_followers():
                     response = requests.put(follow_url, headers=headers)
 
                     if response.status_code == 204:  # Successful follow
-                        print(f'Followed: {follower["login"]}')
+                        print(f'Followed: {follower_login}')
                         success = True
                     else:
                         retries += 1
-                        print(f'Failed to follow: {follower["login"]}. Retrying ({retries}/3)...')
+                        print(f'Failed to follow: {follower_login}. Retrying ({retries}/3)...')
                         time.sleep(10)  # Wait for 10 seconds before retrying
 
                 if not success:
-                    print(f'Failed to follow: {follower["login"]} after 3 attempts.')
+                    print(f'Failed to follow: {follower_login} after 3 attempts.')
             else:
-                print(f'Error checking follow status for: {follower["login"]}')
+                print(f'Error checking follow status for: {follower_login}')
                 time.sleep(10)  # Wait for 10 seconds before retrying
 
             # Check rate limit and wait if needed
