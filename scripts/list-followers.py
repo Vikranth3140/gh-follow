@@ -29,7 +29,7 @@ def get_followers(username, token, per_page=100):
 
     return followers
 
-def save_followers_to_file(followers, filename='text files\followers.txt'):
+def save_followers_to_file(followers, filename = r'..\text files\followers.txt'):
     with open(filename, 'w') as file:
         for follower in followers:
             file.write(f'{follower["login"]}\n')
@@ -40,9 +40,10 @@ def main():
     # Replace 'your_github_token' with your personal GitHub token
     token = 'your_github_token'
 
+
     followers = get_followers(username, token)
     save_followers_to_file(followers)
-    print(f'Successfully saved {len(followers)} followers to text files\followers.txt')
+    print(fr'Successfully saved {len(followers)} followers to text files\followers.txt')
 
 if __name__ == '__main__':
     main()

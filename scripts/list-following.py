@@ -29,7 +29,7 @@ def get_following(username, token, per_page=100):
 
     return following
 
-def save_following_to_file(following, filename='text files\following.txt'):
+def save_following_to_file(following, filename = r'..\text files\following.txt'):
     with open(filename, 'w') as file:
         for user in following:
             file.write(f'{user["login"]}\n')
@@ -42,7 +42,7 @@ def main():
 
     following = get_following(username, token)
     save_following_to_file(following)
-    print(f'Successfully saved {len(following)} following users to text files\following.txt')
+    print(fr'Successfully saved {len(following)} following users to text files\following.txt')
 
 if __name__ == '__main__':
     main()
