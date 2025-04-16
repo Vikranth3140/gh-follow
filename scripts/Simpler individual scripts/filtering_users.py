@@ -67,7 +67,7 @@ def filter_users(following, token):
 
     return filtered_users
 
-def save_users_to_file(users, filename='text files\filtered_users.txt'):
+def save_users_to_file(users, filename = r'..\..\text files\filtered_users.txt'):
     with open(filename, 'w') as file:
         for category, usernames in users.items():
             file.write(f"{category}:\n")
